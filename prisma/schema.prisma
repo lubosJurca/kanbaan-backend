@@ -1,0 +1,66 @@
+
+generator client {
+  provider = "prisma-client"
+  output          = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  username  String
+  email     String    @unique
+  password  String
+  board     Board[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Board {
+  id        Int       @id @default(autoincrement())
+  id_user    Int
+  user      User      @relation(fields: [id_user], references: [id], onDelete: Cascade)
+  title     String
+  columns   Column[]
+  order     Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Column {
+  id        Int       @id @default(autoincrement())
+  id_board  Int       
+  board     Board     @relation(fields: [id_board], references: [id], onDelete: Cascade)
+  title     String
+  task     Task[]
+  order     Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Task {
+  id         Int       @id @default(autoincrement())
+  id_column  Int       
+  column     Column     @relation(fields: [id_column], references: [id], onDelete: Cascade)
+  title      String
+  description String
+  subtask    Subtask[]
+  order       Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Subtask {
+  id         Int       @id @default(autoincrement())
+  id_task   Int       
+  task     Task     @relation(fields: [id_task], references: [id], onDelete: Cascade)
+  description String
+  order       Int
+  done        Boolean
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
