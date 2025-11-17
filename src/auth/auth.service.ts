@@ -35,7 +35,8 @@ export class AuthService {
 
     return {
       accessToken,
-      userWithoutPassword,
+      username: userWithoutPassword.username,
+      id_user: userWithoutPassword.id,
     };
   }
 
@@ -59,7 +60,8 @@ export class AuthService {
 
     return {
       accessToken,
-      userWithoutPassword,
+      username: userWithoutPassword.username,
+      id_user: userWithoutPassword.id,
     };
   }
 }

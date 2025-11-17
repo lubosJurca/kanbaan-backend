@@ -29,6 +29,8 @@ model Board {
   order     Int
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+
+  @@unique([id_user, order])
 }
 
 model Column {
@@ -40,6 +42,8 @@ model Column {
   order     Int
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+
+  @@unique([id_board, order])
 }
 
 model Task {
@@ -52,6 +56,8 @@ model Task {
   order       Int
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+
+  @@unique([id_column, order])
 }
 
 model Subtask {
@@ -63,4 +69,6 @@ model Subtask {
   done        Boolean
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+
+  @@unique([id_task, order])
 }
