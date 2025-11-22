@@ -8,10 +8,17 @@ export class BoardService {
   constructor(private databaseService: DatabaseService) {}
 
   async create(createBoardDto: CreateBoardDto, id_user: number) {
+    const maxOrder = await this.databaseService.board.findFirst({
+      where: { id_user },
+      orderBy: { order: 'desc' },
+    });
+
+    const newOrder = (maxOrder?.order ?? -1) + 1;
+
     return await this.databaseService.board.create({
       data: {
         title: createBoardDto.title,
-        order: 0,
+        order: newOrder,
         id_user,
       },
     });

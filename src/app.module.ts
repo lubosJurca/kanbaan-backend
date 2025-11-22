@@ -6,9 +6,19 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
 import { BoardModule } from './board/board.module';
+import { ColumnModule } from './column/column.module';
+import { TaskModule } from './task/task.module';
 
 @Module({
-  imports: [UsersModule, ConfigModule.forRoot({isGlobal: true}), DatabaseModule, AuthModule, BoardModule],
+  imports: [
+    UsersModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    DatabaseModule,
+    AuthModule,
+    BoardModule,
+    ColumnModule,
+    TaskModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
